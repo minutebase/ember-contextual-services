@@ -73,25 +73,25 @@ For example `serviceFor(person, 'display')` will lookup the service from `app/co
 
 By default `serviceFor` will use the ember-data `modelName` in order to find the service.
 
-You can change this by extending the service and overriding `contextualServiceName`:
+You can change this by extending the service and overriding `contextualServiceScope`:
 
 ```javascript
 import ContextualServicesService from 'ember-contextual-services/services/contextual-service';
 export default ContextualServicesService.extend({
-  contextualServiceName(model) {
+  contextualServiceScope(model) {
     return 'foo';
   }
 });
 ```
 
-serviceFor uses the `guid` as the key so that the same service instance is returned each time for the same object.
+serviceFor uses the `guid` as the id so that the same service instance is returned each time for the same object.
 
-Again this can be changed by overriding `contextualServiceKey`, for example using the `id` instead:
+Again this can be changed by overriding `contextualServiceID`, for example using the `id` instead:
 
 ```javascript
 import ContextualServicesService from 'ember-contextual-services/services/contextual-service';
 export default ContextualServicesService.extend({
-  contextualServiceKey(model) {
+  contextualServiceID(model) {
     return model.get('key');
   }
 });
