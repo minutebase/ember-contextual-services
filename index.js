@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-instance-services'
+  name: 'ember-contextual-services'
 };
