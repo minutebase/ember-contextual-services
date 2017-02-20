@@ -42,6 +42,23 @@ export default Component.extend({
 });
 ```
 
+As a shorthand, instead of injecting and looking up using the `contextual-service` we can use `serviceFor` which is syntactical sugar for the same:
+
+```javascript
+// app/components/x-person/component.js
+import Component from 'ember-component';
+import { serviceFor } from 'ember-contextual-services';
+
+export default Component.extend({
+  personService: serviceFor('person'),
+  person: null,
+
+  doSomething() {
+    return this.get('personService').get('fullName');
+  }
+});
+```
+
 Or in templates we can use the `contextual-service` helper:
 
 ```handlebars
