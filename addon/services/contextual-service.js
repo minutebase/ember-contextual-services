@@ -40,8 +40,18 @@ export default Service.extend({
       serviceName = scope;
     }
 
-    const ContextualServiceFactory = getOwner(this)._lookupFactory(`contextual-service:${serviceName}`);
+    const ContextualServiceFactory = this.serviceFactory(serviceName);
     return ContextualServiceFactory.create({ model });
+  },
+
+  serviceFactory(serviceName) {
+    const lookupName = `contextual-service:${serviceName}`;
+    const owner = getOwner(this);
+    if (owner.factoryFor) {
+      return owner.factoryFor(lookupName);
+    } else {
+      return owner._lookupFactory(lookupName);
+    }
   }
 
 });
