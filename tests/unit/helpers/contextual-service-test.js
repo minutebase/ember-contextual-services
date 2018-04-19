@@ -1,37 +1,33 @@
-import { moduleFor, test } from 'ember-qunit';
-import run from 'ember-runloop';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+import { run } from '@ember/runloop';
 
-moduleFor('helper:contextual-service', 'Unit | Helper | contextual-service', {
-  needs: [
-    'model:person',
-    'service:contextual-service',
-    'contextual-service:person',
-    'contextual-service:person/sub-context',
-  ]
-});
+module('Unit | Helper | contextual-service', function(hooks) {
+  setupTest(hooks);
 
-test('Looks up a service for the model passed into the helper', function(assert) {
-  let helper = this.subject();
+  test('Looks up a service for the model passed into the helper', function(assert) {
+    let helper = this.owner.lookup('helper:contextual-service');
 
-  run(() => {
-    let store = this.container.lookup('service:store');
-    let person = store.createRecord('person', { firstName: 'Bob', lastName: 'Johnson' });
+    run(() => {
+      let store = this.owner.lookup('service:store');
+      let person = store.createRecord('person', { firstName: 'Bob', lastName: 'Johnson' });
 
-    let contextualService = helper.compute([person]);
+      let contextualService = helper.compute([person]);
 
-    assert.equal(contextualService.get('fullName'), 'Bob Johnson');
+      assert.equal(contextualService.get('fullName'), 'Bob Johnson');
+    });
   });
-});
 
-test('Looks up a service for the model and sub-context passed into the helper', function(assert) {
-  let helper = this.subject();
+  test('Looks up a service for the model and sub-context passed into the helper', function(assert) {
+    let helper = this.owner.lookup('helper:contextual-service');
 
-  run(() => {
-    let store = this.container.lookup('service:store');
-    let person = store.createRecord('person', { firstName: 'Bob', lastName: 'Johnson' });
+    run(() => {
+      let store = this.owner.lookup('service:store');
+      let person = store.createRecord('person', { firstName: 'Bob', lastName: 'Johnson' });
 
-    let contextualService = helper.compute([person, 'sub-context']);
+      let contextualService = helper.compute([person, 'sub-context']);
 
-    assert.equal(contextualService.get('initials'), 'B.J');
+      assert.equal(contextualService.get('initials'), 'B.J');
+    });
   });
 });

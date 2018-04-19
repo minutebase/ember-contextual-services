@@ -1,25 +1,27 @@
-import { moduleForComponent, test } from 'ember-qunit';
-import run from 'ember-runloop';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find } from '@ember/test-helpers';
+import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('x-foo', 'Integration | Component | x foo', {
-  integration: true
-});
+module('Integration | Component | x foo', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('it renders', function(assert) {
-  run(() => {
-    let store = this.container.lookup('service:store');
+  test('it renders', async function(assert) {
+    run(() => {
+      let store = this.owner.lookup('service:store');
 
-    let person = store.createRecord('person', {
-      firstName: 'Ted',
-      lastName: 'Baker'
+      let person = store.createRecord('person', {
+        firstName: 'Ted',
+        lastName: 'Baker'
+      });
+
+      this.set('person', person);
     });
 
-    this.set('person', person);
+    await render(hbs`{{x-foo person=person}}`);
+
+    assert.equal(find('.full-name').textContent.trim(), 'Ted Baker');
+    assert.equal(find('.initials').textContent.trim(), 'T.B');
   });
-
-  this.render(hbs`{{x-foo person=person}}`);
-
-  assert.equal(this.$('.full-name').text().trim(), 'Ted Baker');
-  assert.equal(this.$('.initials').text().trim(), 'T.B');
 });

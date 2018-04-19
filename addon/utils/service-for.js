@@ -1,5 +1,5 @@
-import computed from 'ember-computed';
-import getOwner from 'ember-owner/get';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
 
 export default function(propertyName, context) {
   return computed(propertyName, {

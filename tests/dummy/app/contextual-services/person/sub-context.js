@@ -1,8 +1,8 @@
 import ContextualService from 'ember-contextual-services';
-import computed from 'ember-computed';
+import { computed } from '@ember/object';
 
 export default ContextualService.extend({
-  initials: computed('model.firstName', 'model.lastName', {
+  initials: computed('model.{firstName,lastName}', {
     get() {
       let firstName = this.get('model.firstName');
       let lastName  = this.get('model.lastName');
