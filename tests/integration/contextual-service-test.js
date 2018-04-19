@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -22,8 +22,8 @@ module('Integration | contexual-service', function(hooks) {
 
       await render(hbs`{{x-foo person=person}}`);
 
-      assert.equal(find('.full-name').textContent.trim(), 'Ted Baker');
-      assert.equal(find('.initials').textContent.trim(), 'T.B');
+      assert.dom('.full-name').hasText('Ted Baker');
+      assert.dom('.initials').hasText('T.B');
     });
   });
 
@@ -51,8 +51,8 @@ module('Integration | contexual-service', function(hooks) {
         {{/with}}
       `);
 
-      assert.equal(find('.full-name').textContent.trim(), 'Ted Baker');
-      assert.equal(find('.initials').textContent.trim(), 'T.B');
+      assert.dom('.full-name').hasText('Ted Baker');
+      assert.dom('.initials').hasText('T.B');
     });
 
   });
