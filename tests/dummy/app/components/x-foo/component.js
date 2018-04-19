@@ -1,4 +1,4 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import { serviceFor } from 'ember-contextual-services';
 
 export default Component.extend({

@@ -1,6 +1,6 @@
-import Service from 'ember-service';
-import { guidFor } from 'ember-metal/utils';
-import getOwner from 'ember-owner/get';
+import Service from '@ember/service';
+import { guidFor } from '@ember/object/internals';
+import { getOwner } from '@ember/application';
 
 const SERVICE_CACHE = {};
 
